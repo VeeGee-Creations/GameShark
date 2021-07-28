@@ -1,0 +1,11 @@
+{
+  "name": "gameshark",
+  "version": "1.0.0",
+  "description": "Discord bot to track free games",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "VeeGee-Creations",
+  "license": "ISC"
+}
