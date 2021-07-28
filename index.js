@@ -30,7 +30,7 @@ const fs = require('fs');
                 client.commands.get('ping').execute(message, args);
                 break;
             case 'epic':
-                client.commands.get('epic').execute(message, args);
+                client.commands.get('epic').execute(message, args, Discord);
                 break;
             default:
                 break;
