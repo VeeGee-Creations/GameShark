@@ -1,10 +1,19 @@
-import searchCatalog from './searchCatalog.js';
-import {} from 'dotenv/config';
-import * as Discord from 'discord.js';
+require('dotenv').config();
+const Discord = require('discord.js');
+const fs = require('fs');
 
 (function GameShark() {
     const client = new Discord.Client();
-    const prefix = '!';
+    const { TOKEN, prefix } = process.env;
+
+    client.commands = new Discord.Collection();
+
+    const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+    for (const file of commandFiles) {
+        const command = require(`./commands/${file}`);
+        
+        client.commands.set(command.name, command);
+    }
 
     client.once('ready', ()=> {
         console.log('GameShark is online!');
@@ -18,18 +27,20 @@ import * as Discord from 'discord.js';
 
         switch (command) {
             case 'ping':
-                message.channel.send('pong');
+                client.commands.get('ping').execute(message, args);
+                break;
+            case 'epic':
+                client.commands.get('epic').execute(message, args);
                 break;
             default:
                 break;
         }
         return;
     });
-    searchCatalog();
 
 
 
 
 
-    client.login(process.env.TOKEN);
+    client.login(TOKEN);
 })();
